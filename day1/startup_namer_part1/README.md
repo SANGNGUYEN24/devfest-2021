@@ -2,7 +2,7 @@
 
 A new Flutter project.
 
-<img src="/demo.gif" width="300">
+<img src="/day1/startup_namer_part1/demo.gif" width="300">
 
 ## Getting Started
 
