@@ -2,6 +2,8 @@
 
 A new Flutter project.
 
+<img src="/day1/startup_namer_part1/demo.gif" width="300">
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
