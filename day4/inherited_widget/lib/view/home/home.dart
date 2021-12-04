@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:inherited_widget/repository/data.dart';
+import 'package:inherited_widget/state_manager/app_state.dart';
 
 import 'components/production_list_widget.dart';
 import 'components/shoping_cart_icon.dart';
+
+// final GlobalKey<ShoppingCartIconState> shoppingCart = GlobalKey<ShoppingCartIconState>();
+// final GlobalKey<ProductListWidgetState> productList = GlobalKey<ProductListWidgetState>();
 
 class MyStorePage extends StatefulWidget {
   const MyStorePage({Key? key}) : super(key: key);
@@ -18,16 +22,15 @@ class MyStorePageState extends State<MyStorePage> {
     setState(() {
       _inSearch = !_inSearch;
     });
-
+    AppStateWidget.of(context).setProductList(Server.getProductList());
     _controller.clear();
-    productList.currentState!.productList = Server.getProductList();
   }
 
   void _handleSearch() {
     _focusNode.unfocus();
     final String filter = _controller.text;
-    productList.currentState!.productList =
-        Server.getProductList(filter: filter);
+    AppStateWidget.of(context)
+        .setProductList(Server.getProductList(filter: filter));
   }
 
   @override
@@ -60,13 +63,13 @@ class MyStorePageState extends State<MyStorePage> {
                 IconButton(
                     onPressed: _toggleSearch,
                     icon: const Icon(Icons.search, color: Colors.black)),
-              ShoppingCartIcon(key: shoppingCart),
+              const ShoppingCartIcon(),
             ],
             backgroundColor: Colors.white,
             pinned: true,
           ),
           SliverToBoxAdapter(
-            child: ProductListWidget(key: productList),
+            child: ProductListWidget(),
           ),
         ],
       ),
