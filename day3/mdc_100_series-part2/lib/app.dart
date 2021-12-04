@@ -13,11 +13,73 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:shrine/supplemental/cut_corners_border.dart';
 
 import 'home.dart';
 import 'login.dart';
+import './styles/colors.dart';
 
 // TODO: Convert ShrineApp to stateful widget (104)
+
+final ThemeData _kShrineThemeData = _buildShrineThemeData();
+
+// Customize themedata
+ThemeData _buildShrineThemeData() {
+  final ThemeData base = ThemeData.light();
+  return base.copyWith(
+      colorScheme: base.colorScheme.copyWith(
+        primary: kShrinePink100,
+        onPrimary: kShrineBrown900,
+        secondary: kShrineBrown900,
+        onSecondary: kShrineBrown900,
+        error: kShrineErrorRed,
+        // Add the text themes (103)
+
+        // TODO: Add the icon themes (103)
+      ),
+      // Decorate the inputs (103)
+      inputDecorationTheme: const InputDecorationTheme(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 2.0,
+            color: kShrineBrown900,
+          ),
+        ),
+        border: CutCornersBorder(),
+        labelStyle: TextStyle(color: kShrineBrown900)
+      ),
+      textTheme: _buildShrineTextTheme(base.textTheme),
+      textSelectionTheme: const TextSelectionThemeData(
+        selectionColor: kShrinePink100,
+      ));
+}
+
+// Build Shrine text theme
+TextTheme _buildShrineTextTheme(TextTheme base) {
+  return base
+      .copyWith(
+        headline5: base.headline5!.copyWith(
+          fontWeight: FontWeight.w500,
+        ),
+        headline6: base.headline6!.copyWith(
+          fontSize: 18.0,
+        ),
+        caption: base.caption!.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: 14.0,
+        ),
+        bodyText1: base.bodyText1!.copyWith(
+          fontWeight: FontWeight.w500,
+          fontSize: 16.0,
+        ),
+      )
+      .apply(
+        fontFamily: 'Rubik',
+        displayColor: kShrineBrown900,
+        bodyColor: kShrineBrown900,
+      );
+}
+
 class ShrineApp extends StatelessWidget {
   const ShrineApp({Key? key}) : super(key: key);
 
@@ -32,7 +94,8 @@ class ShrineApp extends StatelessWidget {
       // TODO: Change backLayer field value to CategoryMenuPage (104)
       initialRoute: '/login',
       onGenerateRoute: _getRoute,
-      // TODO: Add a theme (103)
+      //  Add a theme (103)
+      theme: _kShrineThemeData,
     );
   }
 
