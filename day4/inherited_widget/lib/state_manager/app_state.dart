@@ -14,6 +14,7 @@ class AppState {
     List<String>? productList,
     Set<String>? itemsInCart,
   }) {
+    print("AppState copyWith in AppState called");
     return AppState(
       productList: productList ?? this.productList,
       itemsInCart: itemsInCart ?? this.itemsInCart,
@@ -29,11 +30,13 @@ class AppStateScope extends InheritedWidget {
       : super(key: key, child: child);
 
   static AppState of(BuildContext context) {
+    print("AppState of in AppStateScope called");
     return context.dependOnInheritedWidgetOfExactType<AppStateScope>()!.data;
   }
 
   @override
   bool updateShouldNotify(AppStateScope oldWidget) {
+    print("updateShouldNotify called");
     return data != oldWidget.data;
   }
 }
@@ -46,6 +49,7 @@ class AppStateWidget extends StatefulWidget {
   final Widget child;
 
   static AppStateWidgetState of(BuildContext context) {
+    print("findAncestorStateOfType in AppStateWidget called");
     return context.findAncestorStateOfType<AppStateWidgetState>()!;
   }
 
@@ -65,6 +69,7 @@ class AppStateWidgetState extends State<AppStateWidget> {
           productList: newProductList,
         );
       });
+      print("setProductList in AppStateWidgetState called");
     }
   }
 
@@ -77,6 +82,7 @@ class AppStateWidgetState extends State<AppStateWidget> {
           itemsInCart: newItemsInCart,
         );
       });
+      print("addToCart in AppStateWidgetState called");
     }
   }
 
@@ -89,13 +95,16 @@ class AppStateWidgetState extends State<AppStateWidget> {
           itemsInCart: newItemsInCart,
         );
       });
+      print("removeFromCart in AppStateWidgetState called");
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    print("build in AppStateWidgetState called");
     return AppStateScope(
-      _data, child: widget.child,
+      _data,
+      child: widget.child,
     );
   }
 }

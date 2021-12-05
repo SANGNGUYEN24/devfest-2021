@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:inherited_widget/repository/data.dart';
 import 'package:inherited_widget/state_manager/app_state.dart';
 import 'production_tile.dart';
 
-
 class ProductListWidget extends StatelessWidget {
   ProductListWidget({Key? key}) : super(key: key);
 
   void _handleAddToCart(String id, BuildContext context) {
+    print("_handelAddToCart in ProductListWidget called");
     AppStateWidget.of(context).addToCart(id);
   }
 
